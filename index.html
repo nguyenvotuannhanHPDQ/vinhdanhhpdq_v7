@@ -720,28 +720,81 @@
         }
 
         /* Style mới cho vùng Thành tích tập thể */
-        .team-achievement-container {
+        .collective-achievement {
             margin-top: 40px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
-        .team-achievement-header {
+        .collective-header-card {
             background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
             color: white;
             border-radius: 10px;
             box-shadow: var(--card-shadow);
             overflow: hidden;
             margin-bottom: 25px;
+            border: none;
             padding: 15px 20px;
         }
         
-        .team-achievement-title {
+        .collective-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .collective-title {
             font-weight: 700;
             letter-spacing: 0.5px;
             font-size: 1.8rem;
             margin: 0;
         }
         
+        .collective-year-selector {
+            width: 180px;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .collective-year-selector option {
+            color: var(--navy-blue);
+            background-color: white;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            height: 400px;
+        }
+        
+        @media (max-width: 768px) {
+            .collective-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .collective-year-selector {
+                width: 100%;
+            }
+            
+            .chart-container {
+                height: 350px;
+                padding: 15px;
+            }
+            
+            .collective-title {
+                font-size: 1.5rem;
+            }
+        }
+
         .team-achievement-filters {
             display: flex;
             gap: 15px;
@@ -758,46 +811,23 @@
             box-shadow: var(--card-shadow);
         }
         
-        .chart-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-            padding: 25px;
-            height: 100%;
-            position: relative;
-        }
-        
-        .chart-wrapper {
-            height: 400px;
-            margin-top: 20px;
-        }
-        
-        .chart-value {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            text-align: center;
-        }
-        
         @media (max-width: 768px) {
-            .team-achievement-filters {
+            .collective-header {
                 flex-direction: column;
-                gap: 10px;
+                align-items: flex-start;
+                gap: 15px;
             }
             
-            .team-filter {
+            .collective-year-selector {
                 width: 100%;
             }
             
-            .chart-wrapper {
-                height: 300px;
+            .chart-container {
+                height: 400px;
+                padding: 15px;
             }
             
-            .team-achievement-title {
+            .collective-title {
                 font-size: 1.5rem;
             }
         }
@@ -937,13 +967,13 @@
             }
         }
 
-         /* Style mới cho vùng Thống kê tổng hợp */
-         .stats-summary-container {
-            margin-top: 40px;
+        /* Style mới cho vùng Thống kê tổng hợp */
+        .statistics-container {
+            margin-top: 30px;
             margin-bottom: 30px;
         }
         
-        .stats-summary-header {
+        .statistics-header-card {
             background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
             color: white;
             border-radius: 10px;
@@ -954,75 +984,66 @@
             padding: 15px 20px;
         }
         
-        .stats-summary-title {
+        .statistics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .statistics-title {
             font-weight: 700;
             letter-spacing: 0.5px;
             font-size: 1.8rem;
             margin: 0;
         }
         
-        .stats-filters {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .stats-filter {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .stats-filter label {
-            display: block;
-            margin-bottom: 8px;
+        .statistics-year-selector {
+            width: 180px;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
             font-weight: 500;
-            color: var(--primary-color);
         }
         
-        .stats-filter select {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 6px;
-            border: 1px solid #ddd;
+        .statistics-year-selector option {
+            color: var(--navy-blue);
             background-color: white;
         }
         
-        .chart-container {
+        .statistics-chart-container {
             background-color: white;
             border-radius: 10px;
             box-shadow: var(--card-shadow);
             padding: 25px;
             border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            height: 400px;
         }
         
-        .chart-value-display {
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-            display: none;
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
         }
         
         @media (max-width: 768px) {
-            .stats-filters {
+            .statistics-header {
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 15px;
             }
             
-            .stats-filter {
-                min-width: 100%;
+            .statistics-year-selector {
+                width: 100%;
+                margin-top: 5px;
+            }
+            
+            .statistics-title {
+                font-size: 1.5rem;
             }
             
             .chart-container {
-                height: 350px;
-                padding: 15px;
+                height: 300px;
             }
         }
 
@@ -1322,7 +1343,7 @@
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="#tong-quan">TỔNG QUAN</a></li>
-                    <li><a href="#tap-the">TẬP THỂ</a></li>
+                    <li><a href="#tap-the">ĐƠN VỊ</a></li>
                     <li><a href="#ca-nhan">CÁ NHÂN</a></li>
                     <li><a href="#thong-ke">THỐNG KÊ</a></li>
                     <li><a href="#lien-he">LIÊN HỆ</a></li>
@@ -1335,7 +1356,7 @@
                 <div class="mobile-menu" id="mobileMenu">
                     <ul class="mobile-nav-links">
                         <li><a href="#tong-quan">TỔNG QUAN</a></li>
-                        <li><a href="#tap-the">TẬP THỂ</a></li>
+                        <li><a href="#tap-the">ĐƠN VỊ</a></li>
                         <li><a href="#ca-nhan">CÁ NHÂN</a></li>
                         <li><a href="#thong-ke">THỐNG KÊ</a></li>
                         <li><a href="#lien-he">LIÊN HỆ</a></li>
@@ -1349,7 +1370,7 @@
         <!-- Header Card -->
         <div class="header-card p-4">
             <div class="d-flex justify-content-between align-items-center">
-                <h3 class="header-title mb-0">Vinh Danh Đổi Mới Sáng Tạo</h3>
+                <h3 class="header-title mb-0">Vinh danh Đổi mới sáng tạo</h3>
                 <!-- <span class="badge bg-light text-dark"><i class="fas fa-calendar-alt me-2"></i>Cập nhật: 26/03/2023</span> -->
             </div>
         </div>
@@ -1381,7 +1402,7 @@
                                     <span class="stat-value summary-value text-success"><h3>15</h3></span>
                                 </div>
                                 <div class="stat-item">
-                                    <span class="stat-label"><i class="fa-solid fa-users" style="color: #f39c12;"></i> Tập thể được thưởng</span>
+                                    <span class="stat-label"><i class="fa-solid fa-users" style="color: #f39c12;"></i> Đơn vị được thưởng</span>
                                     <span class="stat-value summary-value text-warning"><h3>4</h3></span>
                                 </div>
                                 <div class="stat-item">
@@ -1406,7 +1427,7 @@
                                     <span class="stat-value summary-value text-success"><h3>42</h3></span>
                                 </div>
                                 <div class="stat-item">
-                                    <span class="stat-label"><i class="fa-solid fa-users" style="color: #f39c12;"></i> Tập thể được thưởng</span>
+                                    <span class="stat-label"><i class="fa-solid fa-users" style="color: #f39c12;"></i> Đơn vị được thưởng</span>
                                     <span class="stat-value summary-value text-warning"><h3>12</h3></span>
                                 </div>
                                 <div class="stat-item">
@@ -1425,7 +1446,7 @@
             <!-- Vùng Danh sách tin nổi bật - Chiếm 2/3 -->
             <div class="col-lg-8 col-md-12 mb-4">
                 <div class="news-container">
-                    <h5 class="section-title">Đề Tài Đổi Mới Sáng Tạo</h5>
+                    <h5 class="section-title">Đề tài đổi mới sáng tạo</h5>
                     
                     <!-- Carousel cho tab Tuần -->
                     <div id="week-carousel" class="carousel-container carousel-tab-content active">
@@ -1716,7 +1737,7 @@
             <!-- Top 3 cá nhân -->
             <div class="col-lg-6 col-md-6 mb-4">
                 <div class="top3-section">
-                    <h5 class="top3-title">Bảng Xếp Hạng Cá Nhân</h5>
+                    <h5 class="top3-title">Bảng xếp hạng Cá nhân</h5>
                     <div class="top3-items">
                         <!-- Top 2 -->
                         <div class="top-item top2">
@@ -1835,7 +1856,7 @@
             <!-- Top 3 tập thể -->
             <div class="col-lg-6 col-md-6 mb-4">
                 <div class="top3-section">
-                    <h5 class="top3-title">Bảng Xếp Hạng Đơn vị</h5>
+                    <h5 class="top3-title">Bảng xếp hạng Đơn vị</h5>
                     <div class="top3-items">
                         <!-- Top 2 -->
                         <div class="top-item top2">
@@ -1940,7 +1961,7 @@
         <div class="overview-container" id="tong-quan">
             <div class="overview-header-card">
                 <div class="overview-header">
-                    <h3 class="overview-title">Tổng Quan</h3>
+                    <h3 class="overview-title">Tổng quan</h3>
                 </div>
             </div>
 
@@ -1982,7 +2003,7 @@
                 </div>
                 
                 <div class="overview-card">
-                    <div class="overview-card-title">Số tập thể được khen thưởng</div>
+                    <div class="overview-card-title">Số đơn vị được khen thưởng</div>
                     <div class="overview-card-value summary-value text-danger">78</div>
                     <!-- <div class="overview-card-change negative"><i class="fas fa-arrow-down"></i> 5% so với năm trước</div> -->
                 </div>
@@ -1991,40 +2012,31 @@
 
 
         <!-- Vùng Thành tích Tập thể -->
-        <div class="team-achievement-container" id="tap-the">
-            <div class="team-achievement-header">
-                <h3 class="team-achievement-title">Thành Tích Tập Thể</h3>
+        <div class="collective-achievement" id="tap-the">
+            <div class="collective-header-card">
+                <div class="collective-header">
+                    <h3 class="collective-title">Thành tích đơn vị</h3>
+                </div>
             </div>
-            
+
             <div class="team-achievement-filters">
-                <select class="team-filter" id="unitFilter">
-                    <option value="all" selected>Tất cả đơn vị</option>
-                    <option value="cntt">NM. CĐ1</option>
-                    <option value="cnsh">NM. TKVV</option>
-                    <option value="vlxd">P. ATMT</option>
-                    <option value="khmt">P. CNTT & CĐS</option>
-                    <option value="nl">NM. HRC2</option>
-                </select>
-                
-                <select class="team-filter" id="categoryFilter">
-                    <option value="all" selected>Tất cả hạng mục</option>
-                    <option value="innovation">Có đổi mới sáng tạo</option>
-                    <option value="achievement">Thành tích đạt được</option>
-                    <option value="implementation">Đưa hạng mục vào hoạt động</option>
+                <select class="team-filter" id="collectiveYearSelector">
+                    <option value="2023" selected>Năm 2023</option>
+                    <option value="2022">Năm 2022</option>
+                    <option value="2021">Năm 2021</option>
+                    <option value="2020">Năm 2020</option>
                 </select>
             </div>
             
             <div class="chart-container">
-                <div class="chart-wrapper">
-                    <canvas id="teamAchievementChart"></canvas>
-                </div>
+                <canvas id="collectiveChart"></canvas>
             </div>
         </div>
 
         <!-- Vùng Thành tích Cá nhân -->
         <div class="achievement-container" id="ca-nhan">
             <div class="achievement-header-card">
-                <h3 class="achievement-title">Danh Sách Cá Nhân Có Đề Tài Đổi Mới Sáng Tạo</h3>
+                <h3 class="achievement-title">Danh sách cá nhân có đề tài đổi mới sáng tạo</h3>
             </div>
             
             <div class="filter-section_">
@@ -2041,15 +2053,15 @@
                         </select>
                     </div>
                     
-                    <div class="filter-group">
+                    <!-- <div class="filter-group"> -->
                         <!-- <label class="filter-label">Loại khen thưởng</label> -->
-                        <select class="filter-control" id="rewardTypeFilter">
+                        <!-- <select class="filter-control" id="rewardTypeFilter">
                             <option value="">Tất cả loại</option>
                             <option value="Có đổi mới sáng tạo">Có đổi mới sáng tạo</option>
                             <option value="Thành tích đạt được">Thành tích đạt được</option>
                             <option value="Đưa hạng mục vào hoạt động">Đưa hạng mục vào hoạt động</option>
-                        </select>
-                    </div>
+                        </select> -->
+                    <!-- </div> -->
                     
                     <div class="filter-group">
                         <!-- <label class="filter-label">Năm</label> -->
@@ -2112,44 +2124,33 @@
         </div>
 
         <!-- Vùng Thống kê tổng hợp -->
-        <div class="stats-summary-container" id="thong-ke">
-            <div class="stats-summary-header">
-                <h3 class="stats-summary-title">Thống Kê Tổng Hợp</h3>
-            </div>
-            
-            <div class="stats-filters">
-                <div class="stats-filter">
-                    <!-- <label for="categoryFilter_group">Hạng mục</label> -->
-                    <select id="categoryFilter_group" class="form-select">
-                        <option value="all">Tất cả hạng mục</option>
-                        <option value="individual">Số cá nhân được thưởng</option>
-                        <option value="team">Số tập thể được thưởng</option>
-                        <option value="content">Số nội dung được khen thưởng</option>
-                        <option value="bonus">Số tiền đã thưởng</option>
-                    </select>
-                </div>
-                
-                <div class="stats-filter">
-                    <!-- <label for="yearFilter_group">Năm</label> -->
-                    <select id="yearFilter_group" class="form-select">
-                        <!-- <option value="all">Tất cả năm</option> -->
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
+        <div class="statistics-container" id="thong-ke">
+            <div class="statistics-header-card">
+                <div class="statistics-header">
+                    <h3 class="statistics-title">Thống kê tổng hợp</h3>
                 </div>
             </div>
+
+            <div class="team-achievement-filters">
+                <select class="team-filter" id="statisticsYearSelector">
+                    <option value="2023" selected>Năm 2023</option>
+                    <option value="2022">Năm 2022</option>
+                    <option value="2021">Năm 2021</option>
+                    <option value="2020">Năm 2020</option>
+                </select>
+            </div>
             
-            <div class="chart-container">
-                <div class="chart-value-display" id="chartValueDisplay"></div>
-                <canvas id="summaryChart"></canvas>
+            <div class="statistics-chart-container">
+                <div class="chart-container">
+                    <canvas id="statisticsChart"></canvas>
+                </div>
             </div>
         </div>
 
         <!-- Vùng Liên hệ/Phản hồi -->
         <div class="contact-container" id="lien-he">
             <div class="contact-header-card">
-                <h3 class="contact-title">Liên Hệ/Phản Hồi</h3>
+                <h3 class="contact-title">Liên hệ/Phản hồi</h3>
             </div>
             
             <div class="contact-content">
@@ -2381,105 +2382,119 @@
     </script>
 
 <script>
+    // (Giữ nguyên các hàm JavaScript cũ)
+    // ...
     
-    // Dữ liệu biểu đồ thành tích tập thể
-    const teamData = {
-        all: {
-            labels: ['NM. CĐ1', 'NM. TKVV', 'P. ATMT', 'P. CNTT & CĐS', 'NM. HRC2'],
-            innovation: [45, 32, 28, 18, 12],
-            achievement: [38, 29, 24, 15, 10],
-            implementation: [30, 25, 20, 12, 8]
+    // Biểu đồ thành tích tập thể
+    const collectiveCtx = document.getElementById('collectiveChart').getContext('2d');
+    
+    // Dữ liệu mẫu cho các năm
+    const collectiveData = {
+        "2020": {
+            labels: ['P. CNTT & CĐS', 'NM. HRC1', 'NM. CĐ2', 'NM. HRC2', 'NM. TKVV'],
+            data: [45, 32, 28, 20, 15],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(75, 192, 75, 0.7)'
+            ]
         },
-        cntt: {
-            labels: ['NM. CĐ1'],
-            innovation: [45],
-            achievement: [38],
-            implementation: [30]
+        "2021": {
+            labels: ['P. CNTT & CĐS', 'NM. HRC1', 'NM. CĐ2', 'NM. HRC2', 'NM. TKVV'],
+            data: [52, 38, 31, 25, 18],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(75, 192, 75, 0.7)'
+            ]
         },
-        cnsh: {
-            labels: ['NM. TKVV'],
-            innovation: [32],
-            achievement: [29],
-            implementation: [25]
+        "2022": {
+            labels: ['P. CNTT & CĐS', 'NM. HRC1', 'NM. CĐ2', 'NM. HRC2', 'NM. TKVV'],
+            data: [60, 42, 36, 30, 22],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(75, 192, 75, 0.7)'
+            ]
         },
-        vlxd: {
-            labels: ['P. ATMT'],
-            innovation: [28],
-            achievement: [24],
-            implementation: [20]
-        },
-        khmt: {
-            labels: ['P. CNTT & CĐS'],
-            innovation: [18],
-            achievement: [15],
-            implementation: [12]
-        },
-        nl: {
-            labels: ['NM. HRC2'],
-            innovation: [12],
-            achievement: [10],
-            implementation: [8]
+        "2023": {
+            labels: ['P. CNTT & CĐS', 'NM. HRC1', 'NM. CĐ2', 'NM. HRC2', 'NM. TKVV'],
+            data: [68, 48, 40, 35, 25],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(75, 192, 75, 0.7)'
+            ]
         }
     };
     
-    // Khởi tạo biểu đồ
-    const ctx = document.getElementById('teamAchievementChart').getContext('2d');
-    let teamAchievementChart = new Chart(ctx, {
+    // Tạo biểu đồ
+    const collectiveChart = new Chart(collectiveCtx, {
         type: 'bar',
         data: {
-            labels: teamData.all.labels,
-            datasets: [
-                {
-                    label: 'Có đổi mới sáng tạo',
-                    data: teamData.all.innovation,
-                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
-                    borderColor: 'rgba(52, 152, 219, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Thành tích đạt được',
-                    data: teamData.all.achievement,
-                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
-                    borderColor: 'rgba(46, 204, 113, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Đưa hạng mục vào hoạt động',
-                    data: teamData.all.implementation,
-                    backgroundColor: 'rgba(230, 126, 34, 0.7)',
-                    borderColor: 'rgba(230, 126, 34, 1)',
-                    borderWidth: 1
-                }
-            ]
+            labels: collectiveData['2023'].labels,
+            datasets: [{
+                label: 'Số đề tài đổi mới sáng tạo',
+                data: collectiveData['2023'].data,
+                backgroundColor: collectiveData['2023'].backgroundColor,
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(75, 192, 75, 1)'
+                ],
+                borderWidth: 1
+            }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Số đề tài: ${context.raw}`;
+                        }
+                    }
+                },
+                datalabels: {
+                    display: false
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Số đề tài'
+                        text: 'Số đề tài',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        stepSize: 10
                     }
                 },
                 x: {
                     title: {
                         display: true,
-                        // text: 'Đơn vị'
-                    }
-                }
-            },
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `${context.dataset.label}: ${context.raw} đề tài`;
+                        // text: 'Đơn vị',
+                        font: {
+                            weight: 'bold'
                         }
                     }
-                },
-                legend: {
-                    position: 'top',
                 }
             },
             animation: {
@@ -2488,98 +2503,19 @@
         }
     });
     
-    // Hiển thị giá trị trên đầu mỗi cột
-    Chart.register({
-        id: 'showValues',
-        afterDatasetsDraw(chart, args, options) {
-            const {ctx, data, chartArea: {top, bottom, left, right, width, height}, scales: {x, y}} = chart;
-            
-            ctx.font = '12px Arial';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
-            ctx.fillStyle = '#333';
-            
-            chart.data.datasets.forEach((dataset, i) => {
-                chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
-                    if (dataset.data[index] > 0) {
-                        ctx.fillText(
-                            dataset.data[index], 
-                            datapoint.x, 
-                            datapoint.y - 5
-                        );
-                    }
-                });
-            });
-        }
+    
+    // Xử lý chọn năm
+    document.getElementById('collectiveYearSelector').addEventListener('change', function() {
+        const selectedYear = this.value;
+        updateCollectiveChart(selectedYear);
     });
     
-    // Xử lý filter
-    document.getElementById('unitFilter').addEventListener('change', updateChart);
-    document.getElementById('categoryFilter').addEventListener('change', updateChart);
-    
-    function updateChart() {
-        const unit = document.getElementById('unitFilter').value;
-        const category = document.getElementById('categoryFilter').value;
-        
-        // Cập nhật labels
-        teamAchievementChart.data.labels = teamData[unit].labels;
-        
-        // Cập nhật dữ liệu theo lựa chọn
-        if (category === 'all') {
-            teamAchievementChart.data.datasets = [
-                {
-                    label: 'Có đổi mới sáng tạo',
-                    data: teamData[unit].innovation,
-                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
-                    borderColor: 'rgba(52, 152, 219, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Thành tích đạt được',
-                    data: teamData[unit].achievement,
-                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
-                    borderColor: 'rgba(46, 204, 113, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Đưa hạng mục vào hoạt động',
-                    data: teamData[unit].implementation,
-                    backgroundColor: 'rgba(230, 126, 34, 0.7)',
-                    borderColor: 'rgba(230, 126, 34, 1)',
-                    borderWidth: 1
-                }
-            ];
-        } else {
-            let datasetConfig = {};
-            
-            if (category === 'innovation') {
-                datasetConfig = {
-                    label: 'Có đổi mới sáng tạo',
-                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
-                    borderColor: 'rgba(52, 152, 219, 1)'
-                };
-            } else if (category === 'achievement') {
-                datasetConfig = {
-                    label: 'Thành tích đạt được',
-                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
-                    borderColor: 'rgba(46, 204, 113, 1)'
-                };
-            } else {
-                datasetConfig = {
-                    label: 'Đưa hạng mục vào hoạt động',
-                    backgroundColor: 'rgba(230, 126, 34, 0.7)',
-                    borderColor: 'rgba(230, 126, 34, 1)'
-                };
-            }
-            
-            teamAchievementChart.data.datasets = [{
-                ...datasetConfig,
-                data: teamData[unit][category],
-                borderWidth: 1
-            }];
-        }
-        
-        teamAchievementChart.update();
+    // Hàm cập nhật biểu đồ
+    function updateCollectiveChart(year) {
+        collectiveChart.data.labels = collectiveData[year].labels;
+        collectiveChart.data.datasets[0].data = collectiveData[year].data;
+        collectiveChart.data.datasets[0].backgroundColor = collectiveData[year].backgroundColor;
+        collectiveChart.update();
     }
 </script>
 <script>
@@ -2589,24 +2525,24 @@
     // Dữ liệu mẫu cho bảng Thành tích Cá nhân
     const achievementData = [
         { id: 'NV001', name: 'Nguyễn Văn A', department: 'NM. CĐ1', project: 'Giải pháp A', reward: 'Có đổi mới sáng tạo', year: '2023' },
-        { id: 'NV002', name: 'Trần Thị B', department: 'NM. TKVV', project: 'Nghiên cứu B', reward: 'Thành tích đạt được', year: '2023' },
-        { id: 'NV003', name: 'Lê Văn C', department: 'P. ATMT', project: 'Vật liệu C', reward: 'Đưa hạng mục vào hoạt động', year: '2023' },
-        { id: 'NV004', name: 'Phạm Thị D', department: 'P. CNTT & CĐS', project: 'Giải pháp xử lý D', reward: 'Đưa hạng mục vào hoạt động', year: '2023' },
+        { id: 'NV002', name: 'Trần Thị B', department: 'NM. TKVV', project: 'Nghiên cứu B', reward: 'Có đổi mới sáng tạo', year: '2023' },
+        { id: 'NV003', name: 'Lê Văn C', department: 'P. ATMT', project: 'Vật liệu C', reward: 'Có đổi mới sáng tạo', year: '2023' },
+        { id: 'NV004', name: 'Phạm Thị D', department: 'P. CNTT & CĐS', project: 'Giải pháp xử lý D', reward: 'Có đổi mới sáng tạo', year: '2023' },
         { id: 'NV005', name: 'Hoàng Văn E', department: 'NM. HRC2', project: 'Năng lượng tái tạo', reward: 'Có đổi mới sáng tạo', year: '2023' },
         { id: 'NV006', name: 'Vũ Thị F', department: 'NM. CĐ1', project: 'Blockchain', reward: 'Có đổi mới sáng tạo', year: '2022' },
-        { id: 'NV007', name: 'Đặng Văn G', department: 'NM. TKVV', project: 'Nghiên cứu E', reward: 'Thành tích đạt được', year: '2022' },
-        { id: 'NV008', name: 'Bùi Thị H', department: 'P. ATMT', project: 'Đề tài F', reward: 'Đưa hạng mục vào hoạt động', year: '2022' },
-        { id: 'NV009', name: 'Ngô Văn I', department: 'P. CNTT & CĐS', project: 'Giám sát G', reward: 'Đưa hạng mục vào hoạt động', year: '2022' },
+        { id: 'NV007', name: 'Đặng Văn G', department: 'NM. TKVV', project: 'Nghiên cứu E', reward: 'Có đổi mới sáng tạo', year: '2022' },
+        { id: 'NV008', name: 'Bùi Thị H', department: 'P. ATMT', project: 'Đề tài F', reward: 'Có đổi mới sáng tạo', year: '2022' },
+        { id: 'NV009', name: 'Ngô Văn I', department: 'P. CNTT & CĐS', project: 'Giám sát G', reward: 'Có đổi mới sáng tạo', year: '2022' },
         { id: 'NV010', name: 'Đỗ Thị K', department: 'NM. HRC2', project: 'Hiệu suất H', reward: 'Có đổi mới sáng tạo', year: '2022' },
         { id: 'NV011', name: 'Mai Văn L', department: 'NM. CĐ1', project: 'Hệ thống K', reward: 'Có đổi mới sáng tạo', year: '2021' },
-        { id: 'NV012', name: 'Lý Thị M', department: 'NM. TKVV', project: 'Công nghệ L', reward: 'Thành tích đạt được', year: '2021' },
-        { id: 'NV013', name: 'Trương Văn N', department: 'P. ATMT', project: 'Vật liệu M', reward: 'Đưa hạng mục vào hoạt động', year: '2021' },
-        { id: 'NV014', name: 'Hồ Thị O', department: 'P. CNTT & CĐS', project: 'Xử lý N', reward: 'Đưa hạng mục vào hoạt động', year: '2021' },
+        { id: 'NV012', name: 'Lý Thị M', department: 'NM. TKVV', project: 'Công nghệ L', reward: 'Có đổi mới sáng tạo', year: '2021' },
+        { id: 'NV013', name: 'Trương Văn N', department: 'P. ATMT', project: 'Vật liệu M', reward: 'Có đổi mới sáng tạo', year: '2021' },
+        { id: 'NV014', name: 'Hồ Thị O', department: 'P. CNTT & CĐS', project: 'Xử lý N', reward: 'Có đổi mới sáng tạo', year: '2021' },
         { id: 'NV015', name: 'Phan Văn P', department: 'NM. HRC2', project: 'Năng lượng Z', reward: 'Có đổi mới sáng tạo', year: '2021' },
         { id: 'NV016', name: 'Võ Thị Q', department: 'NM. CĐ1', project: 'AI', reward: 'Có đổi mới sáng tạo', year: '2020' },
-        { id: 'NV017', name: 'Chu Văn R', department: 'NM. TKVV', project: 'Nghiên cứu O', reward: 'Thành tích đạt được', year: '2020' },
-        { id: 'NV018', name: 'Lâm Thị S', department: 'P. ATMT', project: 'Đề tài ABC', reward: 'Đưa hạng mục vào hoạt động', year: '2020' },
-        { id: 'NV019', name: 'Tô Văn T', department: 'P. CNTT & CĐS', project: 'Giảm thiểu CO2', reward: 'Đưa hạng mục vào hoạt động', year: '2020' },
+        { id: 'NV017', name: 'Chu Văn R', department: 'NM. TKVV', project: 'Nghiên cứu O', reward: 'Có đổi mới sáng tạo', year: '2020' },
+        { id: 'NV018', name: 'Lâm Thị S', department: 'P. ATMT', project: 'Đề tài ABC', reward: 'Có đổi mới sáng tạo', year: '2020' },
+        { id: 'NV019', name: 'Tô Văn T', department: 'P. CNTT & CĐS', project: 'Giảm thiểu CO2', reward: 'Có đổi mới sáng tạo', year: '2020' },
         { id: 'NV020', name: 'Hà Thị U', department: 'NM. HRC2', project: 'Lưu trữ năng lượng', reward: 'Có đổi mới sáng tạo', year: '2020' }
     ];
 
@@ -2750,13 +2686,13 @@
     // Hàm lọc dữ liệu
     function filterData() {
         const department = document.getElementById('departmentFilter').value.toLowerCase();
-        const rewardType = document.getElementById('rewardTypeFilter').value.toLowerCase();
+        // const rewardType = document.getElementById('rewardTypeFilter').value.toLowerCase();
         const year = document.getElementById('yearFilter').value;
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         
         filteredData = achievementData.filter(item => {
             return (department === '' || item.department.toLowerCase().includes(department)) &&
-                   (rewardType === '' || item.reward.toLowerCase().includes(rewardType)) &&
+                //    (rewardType === '' || item.reward.toLowerCase().includes(rewardType)) &&
                    (year === '' || item.year === year) &&
                    (searchTerm === '' || 
                     item.id.toLowerCase().includes(searchTerm) || 
@@ -2773,7 +2709,7 @@
     
     // Thêm sự kiện cho các bộ lọc
     document.getElementById('departmentFilter').addEventListener('change', filterData);
-    document.getElementById('rewardTypeFilter').addEventListener('change', filterData);
+    // document.getElementById('rewardTypeFilter').addEventListener('change', filterData);
     document.getElementById('yearFilter').addEventListener('change', filterData);
     document.getElementById('searchInput').addEventListener('input', filterData);
     
@@ -2784,69 +2720,72 @@
     // (Giữ nguyên các hàm JavaScript cũ)
     // ...
     
-    // Khởi tạo biểu đồ
-    const ctx_group = document.getElementById('summaryChart').getContext('2d');
-    const chartValueDisplay = document.getElementById('chartValueDisplay');
+    // Khởi tạo biểu đồ thống kê
+    const statisticsCtx = document.getElementById('statisticsChart').getContext('2d');
     
-    // Dữ liệu mẫu
-    const chartData = {
-        labels: ['Có đổi mới sáng tạo', 'Thành tích đạt được', 'Đưa hạng mục vào hoạt động'],
-        datasets: [
-            {
-                label: 'Số cá nhân được thưởng',
-                data: [120, 85, 65],
-                backgroundColor: 'rgba(76, 175, 80, 0.7)',   // Xanh lá đậm
-                borderColor: 'rgba(76, 175, 80, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Số tập thể được thưởng',
-                data: [45, 30, 22],
-                backgroundColor: 'rgba(100, 181, 246, 0.7)',  // Xanh dương nhạt
-                borderColor: 'rgba(100, 181, 246, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Số nội dung được khen thưởng',
-                data: [80, 60, 40],
-                backgroundColor: 'rgba(255, 235, 59, 0.7)',   // Vàng nhạt
-                borderColor: 'rgba(255, 235, 59, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Số tiền đã thưởng (tỷ)',
-                data: [15, 10, 8],
-                backgroundColor: 'rgba(255, 112, 67, 0.7)',   // Cam nhạt
-                borderColor: 'rgba(255, 112, 67, 1)',
-                borderWidth: 1
-            }
-        ]
-
+    // Dữ liệu mẫu cho các năm
+    const statisticsData = {
+        "2020": {
+            individuals: 245,
+            teams: 65,
+            contents: 120,
+            bonus: 32
+        },
+        "2021": {
+            individuals: 278,
+            teams: 72,
+            contents: 145,
+            bonus: 36
+        },
+        "2022": {
+            individuals: 295,
+            teams: 82,
+            contents: 168,
+            bonus: 42
+        },
+        "2023": {
+            individuals: 324,
+            teams: 78,
+            contents: 195,
+            bonus: 45
+        }
     };
     
     // Tạo biểu đồ
-    const summaryChart = new Chart(ctx_group, {
+    const statisticsChart_group = new Chart(statisticsCtx, {
         type: 'bar',
-        data: chartData,
+        data: {
+            labels: ['Cá nhân được thưởng', 'Đơn vị được thưởng', 'Nội dung khen thưởng', 'Tiền thưởng (tỷ)'],
+            datasets: [{
+                label: 'Thống kê năm 2023',
+                data: [
+                    statisticsData['2023'].individuals,
+                    statisticsData['2023'].teams,
+                    statisticsData['2023'].contents,
+                    statisticsData['2023'].bonus
+                ],
+                backgroundColor: [
+                    'rgba(52, 152, 219, 0.7)',
+                    'rgba(46, 204, 113, 0.7)',
+                    'rgba(230, 126, 34, 0.7)',
+                    'rgba(155, 89, 182, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(52, 152, 219, 1)',
+                    'rgba(46, 204, 113, 1)',
+                    'rgba(230, 126, 34, 1)',
+                    'rgba(155, 89, 182, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Số lượng'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        // text: 'Danh mục'
-                    }
-                }
-            },
             plugins: {
+                legend: {
+                    display: false
+                },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
@@ -2854,116 +2793,78 @@
                             if (label) {
                                 label += ': ';
                             }
-                            if (context.dataset.label.includes('tiền')) {
-                                label += context.raw + ' tỷ đồng';
-                            } else {
-                                label += context.raw;
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y;
                             }
                             return label;
                         }
                     }
                 },
-                legend: {
-                    position: 'bottom',
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: function(value) {
+                        return value;
+                    },
+                    font: {
+                        weight: 'bold'
+                    }
                 }
             },
-            onClick: (e, activeEls) => {
-                if (activeEls.length > 0) {
-                    const { datasetIndex, index } = activeEls[0];
-                    const datasetLabel = chartData.datasets[datasetIndex].label;
-                    const value = chartData.datasets[datasetIndex].data[index];
-                    const category = chartData.labels[index];
-                    
-                    let displayText = `${datasetLabel}<br>${category}: ${value}`;
-                    if (datasetLabel.includes('tiền')) {
-                        displayText += ' tỷ đồng';
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value;
+                        }
                     }
-                    
-                    chartValueDisplay.innerHTML = displayText;
-                    chartValueDisplay.style.display = 'block';
                 }
             }
         }
     });
     
-    // Xử lý filter
-    document.getElementById('categoryFilter_group').addEventListener('change', updateChart);
-    document.getElementById('yearFilter_group').addEventListener('change', updateChart);
+    // Cập nhật biểu đồ khi chọn năm
+    document.getElementById('statisticsYearSelector').addEventListener('change', function() {
+        const selectedYear = this.value;
+        updateStatisticsChart(selectedYear);
+    });
     
-    function updateChart() {
-        const category = document.getElementById('categoryFilter_group').value;
-        const year = document.getElementById('yearFilter_group').value;
-        
-        // Ở đây bạn có thể thêm logic filter dữ liệu thực tế
-        // Đây chỉ là ví dụ filter đơn giản
-        
-        if (category === 'all') {
-            // Hiển thị tất cả datasets
-            chartData.datasets.forEach(dataset => {
-                dataset.hidden = false;
-            });
-        } else {
-            // Ẩn tất cả datasets trừ dataset được chọn
-            chartData.datasets.forEach((dataset, index) => {
-                dataset.hidden = true;
-                
-                if (category === 'individual' && dataset.label.includes('cá nhân')) {
-                    dataset.hidden = false;
-                }
-                if (category === 'team' && dataset.label.includes('tập thể')) {
-                    dataset.hidden = false;
-                }
-                if (category === 'content' && dataset.label.includes('nội dung')) {
-                    dataset.hidden = false;
-                }
-                if (category === 'bonus' && dataset.label.includes('tiền')) {
-                    dataset.hidden = false;
-                }
-            });
-        }
-        
-        // Cập nhật dữ liệu theo năm (ví dụ)
-        if (year !== 'all') {
-            // Đây là nơi bạn sẽ load dữ liệu thực tế theo năm
-            // Ví dụ:
-            const yearlyData = {
-                '2021': {
-                    individual: [100, 70, 50],
-                    team: [35, 25, 15],
-                    content: [70, 50, 30],
-                    bonus: [12, 8, 5]
-                },
-                '2022': {
-                    individual: [110, 80, 60],
-                    team: [40, 28, 20],
-                    content: [75, 55, 35],
-                    bonus: [14, 9, 6]
-                },
-                '2023': {
-                    individual: [120, 85, 65],
-                    team: [45, 30, 22],
-                    content: [80, 60, 40],
-                    bonus: [15, 10, 8]
-                }
-            };
-            
-            if (yearlyData[year]) {
-                chartData.datasets[0].data = yearlyData[year].individual;
-                chartData.datasets[1].data = yearlyData[year].team;
-                chartData.datasets[2].data = yearlyData[year].content;
-                chartData.datasets[3].data = yearlyData[year].bonus;
-            }
-        }
-        
-        summaryChart.update();
+    // Hàm cập nhật biểu đồ
+    function updateStatisticsChart(year) {
+        statisticsChart_group.data.datasets[0].label = `Thống kê năm ${year}`;
+        statisticsChart_group.data.datasets[0].data = [
+            statisticsData[year].individuals,
+            statisticsData[year].teams,
+            statisticsData[year].contents,
+            statisticsData[year].bonus
+        ];
+        statisticsChart_group.update();
     }
     
-    // Ẩn hiển thị giá trị khi click ra ngoài
-    document.querySelector('.chart-container').addEventListener('click', (e) => {
-        if (e.target.tagName !== 'CANVAS') {
-            chartValueDisplay.style.display = 'none';
+    // Plugin để hiển thị giá trị trên đỉnh cột
+    Chart.register({
+        id: 'datalabels',
+        afterDatasetsDraw(chart) {
+            const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales: { x, y } } = chart;
+            
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            
+            chart.data.datasets.forEach((dataset, i) => {
+                chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+                    ctx.fillText(
+                        dataset.data[index], 
+                        datapoint.x, 
+                        datapoint.y - 10
+                    );
+                });
+            });
         }
     });
+    
 </script>
 <script>
     // Xử lý menu mobile
