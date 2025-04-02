@@ -1,0 +1,3025 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinh Danh - HPDQ</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #1a5276;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --tab-active-bg: #f8f9fa;
+            --gold: #d4af37;
+            --silver: #a8a8a8;
+            --bronze: #cd7f32;
+            --dark-blue: #1a237e;
+            --navy-blue: #0d1b36;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .header-card {
+            background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: none;
+        }
+        
+        .header-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-left: 12px;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+        
+        .stats-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: #5d6d7e;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .stat-change {
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .positive {
+            color: #27ae60;
+        }
+        
+        .negative {
+            color: var(--accent-color);
+        }
+        
+        .neutral {
+            color: #f39c12;
+        }
+        
+        .news-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        /* Carousel styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        
+        .cards-wrapper {
+            display: flex;
+            padding: 5px 0;
+        }
+        
+        .news-card {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-right: 15px;
+            width: 200px;
+            flex: 0 0 auto;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-img {
+            width: 100%;
+            /* height: 120px; */
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .news-content {
+            padding: 12px;
+            background-color: white;
+        }
+        
+        .news-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 36px;
+        }
+        
+        .news-author {
+            color: #7f8c8d;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+            border: 1px solid #eee;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .carousel-control:hover {
+            background-color: var(--secondary-color);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-control.prev {
+            left: 10px;
+        }
+        
+        .carousel-control.next {
+            right: 10px;
+        }
+        
+        /* Tab styles */
+        .custom-tabs {
+            display: flex;
+            border-radius: 8px;
+            background-color: #f1f5f9;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .custom-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #5d6d7e;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .custom-tab.active {
+            background-color: white;
+            color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+        
+        .custom-tab.active::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .custom-tab:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Top 3 styles */
+        .top3-container {
+            margin-top: 30px;
+        }
+        
+        .top3-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .top3-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .top3-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .top3-items {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+        }
+        
+        .top-item {
+            text-align: center;
+            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .top-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .top-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            margin-bottom: 15px;
+        }
+        
+        .top1 {
+            order: 2;
+        }
+        
+        .top2 {
+            order: 1;
+        }
+        
+        .top3 {
+            order: 3;
+        }
+        
+        .top1 .top-avatar {
+            width: 120px;
+            height: 120px;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .top2 .top-avatar {
+            border-color: var(--silver);
+            box-shadow: 0 0 10px rgba(168, 168, 168, 0.3);
+        }
+        
+        .top3 .top-avatar {
+            border-color: var(--bronze);
+            box-shadow: 0 0 10px rgba(205, 127, 50, 0.3);
+        }
+        
+        .top-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            line-height: 30px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .top1 .top-badge {
+            background-color: var(--gold);
+        }
+        
+        .top2 .top-badge {
+            background-color: var(--silver);
+        }
+        
+        .top3 .top-badge {
+            background-color: var(--bronze);
+        }
+        
+        .top-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .top-unit, .top-project {
+            font-size: 0.85rem;
+            color: #5d6d7e;
+            margin-bottom: 5px;
+        }
+        
+        .top-project {
+            font-style: italic;
+        }
+        
+        /* Ranking table styles */
+        .ranking-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .ranking-tabs {
+            display: flex;
+            border-radius: 8px;
+            background-color: #f1f5f9;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .ranking-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #5d6d7e;
+        }
+        
+        .ranking-tab.active {
+            background-color: white;
+            color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+        
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .ranking-table th {
+            background: linear-gradient(180deg, #0579DA 0%, #00579F 44.27%);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .ranking-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        
+        .ranking-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .ranking-table tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .ranking-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            border: 2px solid #eee;
+        }
+        
+        .ranking-name {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .page-item {
+            margin: 0 5px;
+        }
+        
+        .page-item.active .page-link {
+            background-color: var(--navy-blue);
+            border-color: var(--navy-blue);
+            color: white;
+        }
+        
+        .page-link {
+            color: var(--navy-blue);
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .page-link:hover {
+            background-color: #f1f5f9;
+            border-color: #ddd;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .top3-items {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .top-item {
+                margin-bottom: 20px;
+                width: 80%;
+                max-width: 300px;
+            }
+            
+            .top1, .top2, .top3 {
+                order: initial;
+            }
+            
+            .top1 .top-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .header-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .news-card {
+                width: 160px;
+            }
+            
+            .news-img {
+                height: 90px;
+            }
+            
+            .header-title {
+                font-size: 1.3rem;
+            }
+            
+            .tag {
+                margin-left: 8px;
+                padding: 2px 8px;
+            }
+        }
+
+        /* Style mới cho vùng Tổng quan */
+        .overview-container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .overview-header-card {
+            background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .overview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .overview-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .year-selector {
+            width: 180px;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .year-selector option {
+            color: var(--navy-blue);
+            background-color: white;
+        }
+        
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .overview-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .overview-card-title {
+            color: #5d6d7e;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .overview-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .overview-card-change {
+            font-size: 0.9rem;
+            color: #27ae60;
+            margin-top: auto;
+        }
+        
+        .overview-card-change.negative {
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 992px) {
+            .overview-cards {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .overview-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .year-selector {
+                width: 100%;
+                margin-top: 5px;
+            }
+            
+            .overview-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .overview-card {
+                padding: 20px;
+                min-height: 160px;
+            }
+            
+            .overview-card-value {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .overview-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .overview-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Style mới cho vùng Thành tích tập thể */
+        .team-achievement-container {
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .team-achievement-header {
+            background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 25px;
+            padding: 15px 20px;
+        }
+        
+        .team-achievement-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .team-achievement-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .team-filter {
+            min-width: 200px;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            background-color: white;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            height: 100%;
+            position: relative;
+        }
+        
+        .chart-wrapper {
+            height: 400px;
+            margin-top: 20px;
+        }
+        
+        .chart-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .team-achievement-filters {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .team-filter {
+                width: 100%;
+            }
+            
+            .chart-wrapper {
+                height: 300px;
+            }
+            
+            .team-achievement-title {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        /* Style mới cho vùng Thành tích Cá nhân */
+        .achievement-container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .achievement-header-card {
+            background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .achievement-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .filter-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        .filter-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        
+        .search-box {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding-left: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235d6d7e' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 15px center;
+            background-size: 16px;
+        }
+        
+        .achievement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .achievement-table th {
+            background: linear-gradient(180deg, #0579DA 0%, #00579F 44.27%);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+        }
+        
+        .achievement-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        
+        .achievement-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .achievement-table tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .page-info {
+            color: #5d6d7e;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .filter-group, .search-box {
+                min-width: 100%;
+            }
+            
+            .achievement-title {
+                font-size: 1.5rem;
+            }
+        }
+
+         /* Style mới cho vùng Thống kê tổng hợp */
+         .stats-summary-container {
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-summary-header {
+            background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .stats-summary-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .stats-filters {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stats-filter {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stats-filter label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        .stats-filter select {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            height: 400px;
+        }
+        
+        .chart-value-display {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-filters {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stats-filter {
+                min-width: 100%;
+            }
+            
+            .chart-container {
+                height: 350px;
+                padding: 15px;
+            }
+        }
+
+        /* Style mới cho vùng Liên hệ/Phản hồi */
+        .contact-container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-header-card {
+            background: linear-gradient(135deg, var(--navy-blue), var(--dark-blue));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .contact-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .contact-content {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--navy-blue);
+            font-size: 1.2rem;
+        }
+        
+        .contact-text {
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-title {
+                font-size: 1.5rem;
+            }
+            
+            .contact-item {
+                font-size: 1rem;
+            }
+            
+            .contact-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+
+       /* Header styles */
+       .main-header {
+            background: linear-gradient(180deg, #0579DA 0%, #00579F 44.27%);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            height: 50px;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+        
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #f8f9fa;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            background: linear-gradient(180deg, #0579DA 0%, #00579F 44.27%);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding: 15px 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-nav-links li {
+            margin-bottom: 15px;
+        }
+        
+        .mobile-nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 8px 0;
+        }
+        
+        /* (Giữ nguyên các style cũ) */
+        /* ... */
+        
+        @media (max-width: 992px) {
+            .nav-links li {
+                margin-left: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Style mới cho footer */
+        .footer {
+            background: linear-gradient(180deg, #0579DA 0%, #00579F 44.27%);
+            color: white;
+            padding: 25px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            width: 150px;
+        }
+        
+        .footer-info {
+            text-align: center;
+            flex-grow: 1;
+            padding: 0 20px;
+        }
+        
+        .footer-info p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .back-to-top {
+            /* background-color: var(--gold); */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy-blue);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .back-to-top:hover {
+            background-color: white;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-info {
+                order: 2;
+                padding: 0;
+            }
+            
+            .footer-logo {
+                order: 1;
+            }
+            
+            .back-to-top {
+                order: 3;
+            }
+        }
+
+         /* Style cho carousel theo tab */
+         .carousel-tab-content {
+            display: none;
+        }
+        
+        .carousel-tab-content.active {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header mới -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="./images/Logo-Gang-thep-Trang.png" alt="Company Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#tong-quan">TỔNG QUAN</a></li>
+                    <li><a href="#tap-the">TẬP THỂ</a></li>
+                    <li><a href="#ca-nhan">CÁ NHÂN</a></li>
+                    <li><a href="#thong-ke">THỐNG KÊ</a></li>
+                    <li><a href="#lien-he">LIÊN HỆ</a></li>
+                </ul>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul class="mobile-nav-links">
+                        <li><a href="#tong-quan">TỔNG QUAN</a></li>
+                        <li><a href="#tap-the">TẬP THỂ</a></li>
+                        <li><a href="#ca-nhan">CÁ NHÂN</a></li>
+                        <li><a href="#thong-ke">THỐNG KÊ</a></li>
+                        <li><a href="#lien-he">LIÊN HỆ</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container-fluid py-3">
+        <!-- Header Card -->
+        <div class="header-card p-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="header-title mb-0">Vinh Danh Đổi Mới Sáng Tạo</h3>
+                <!-- <span class="badge bg-light text-dark"><i class="fas fa-calendar-alt me-2"></i>Cập nhật: 26/03/2023</span> -->
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Vùng Thông tin tuần/tháng - Chiếm 1/3 -->
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="stats-container">
+                    <!-- Tab mới chuyên nghiệp -->
+                    <div class="custom-tabs">
+                        <div class="custom-tab active" id="custom-week-tab" onclick="switchTab('week')">
+                            Tuần 3
+                        </div>
+                        <div class="custom-tab" id="custom-month-tab" onclick="switchTab('month')">
+                            Tháng 3
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="timeTabContent">
+                        <!-- Tab Tuần -->
+                        <div class="tab-pane fade show active" id="week" role="tabpanel" aria-labelledby="week-tab">
+                            <div class="d-flex flex-column">
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-list-check" style="color: #3498db;"></i> Tổng đề tài</span>
+                                    <span class="stat-value summary-value text-primary"><h3>24</h3></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-user-check" style="color: #27ae60;"></i> Cá nhân được thưởng</span>
+                                    <span class="stat-value summary-value text-success"><h3>15</h3></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-users" style="color: #f39c12;"></i> Tập thể được thưởng</span>
+                                    <span class="stat-value summary-value text-warning"><h3>4</h3></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-money-bill-wave" style="color: #e74c3c;"></i> Tổng tiền thưởng</span>
+                                    <span class="stat-value summary-value text-danger"><h3>125M</h3></span>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3 text-muted small">
+                                <i class="fas fa-solid fa-calendar me-2"></i><strong>Tuần 3 (20/03 - 26/03/2023)</strong>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab Tháng -->
+                        <div class="tab-pane fade" id="month" role="tabpanel" aria-labelledby="month-tab">
+                            <div class="d-flex flex-column">
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-list-check" style="color: #3498db;"></i> Tổng đề tài</span>
+                                    <span class="stat-value summary-value text-primary"><h3>78</h3></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-user-check" style="color: #27ae60;"></i> Cá nhân được thưởng</span>
+                                    <span class="stat-value summary-value text-success"><h3>42</h3></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-users" style="color: #f39c12;"></i> Tập thể được thưởng</span>
+                                    <span class="stat-value summary-value text-warning"><h3>12</h3></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fa-solid fa-money-bill-wave" style="color: #e74c3c;"></i> Tổng tiền thưởng</span>
+                                    <span class="stat-value summary-value text-danger"><h3>450M</h3></span>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3 text-muted small">
+                                <i class="fas fa-solid fa-calendar me-2"></i><strong>Tháng 3 (01/03 - 31/03/2023)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vùng Danh sách tin nổi bật - Chiếm 2/3 -->
+            <div class="col-lg-8 col-md-12 mb-4">
+                <div class="news-container">
+                    <h5 class="section-title">Đề Tài Đổi Mới Sáng Tạo</h5>
+                    
+                    <!-- Carousel cho tab Tuần -->
+                    <div id="week-carousel" class="carousel-container carousel-tab-content active">
+                        <div class="carousel-track" id="weekCarouselTrack">
+                            <!-- Slide 1 Tuần -->
+                            <div class="carousel-slide active">
+                                <div class="cards-wrapper">
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_01.jpg" class="news-img" alt="Research Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Nghiên cứu ứng dụng A (Tuần)</h6>
+                                            <p class="news-author">
+                                                P. CNTT & CĐS
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_02.jpg" class="news-img" alt="Industry Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Giải pháp tiết kiệm B (Tuần)</h6>
+                                            <p class="news-author">
+                                                P. ATMT
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_03.jpg" class="news-img" alt="Construction Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Vật liệu xây dựng C (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. HRC1
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_05.jpg" class="news-img" alt="Blockchain Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Công nghệ blockchain (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. HRC2
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_05.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Cảnh báo D (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. NL
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 Tuần -->
+                            <div class="carousel-slide">
+                                <div class="cards-wrapper">
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_06.jpg" class="news-img" alt="IoT Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Ứng dụng IoT (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. CĐ3
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_07.jpg" class="news-img" alt="Smart City Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Giải pháp E (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. CĐ1
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_08.jpg" class="news-img" alt="Climate Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Nghiên cứu biến đổi F (Tuần)</h6>
+                                            <p class="news-author">
+                                                P. CNTT & CĐS
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_11.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Hệ thống cảnh báo G (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. CĐ2
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_01.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Ngiên cứu ABC (Tuần)</h6>
+                                            <p class="news-author">
+                                                NM. TKVV
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controls -->
+                        <div class="carousel-control prev" onclick="moveSlide('week', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="carousel-control next" onclick="moveSlide('week', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Carousel cho tab Tháng -->
+                    <div id="month-carousel" class="carousel-container carousel-tab-content">
+                        <div class="carousel-track" id="monthCarouselTrack">
+                            <!-- Slide 1 Tháng -->
+                            <div class="carousel-slide active">
+                                <div class="cards-wrapper">
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_07.jpg" class="news-img" alt="Research Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Đề tài X ứng dụng Y (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. NL
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_01.jpg" class="news-img" alt="Industry Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Giải pháp tiết kiệm năng lượng (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. HRC2
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_13.jpg" class="news-img" alt="Construction Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Vật liệu xây dựng (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. HRC2
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_08.jpg" class="news-img" alt="Blockchain Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Công nghệ blockchain (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. HRC1
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_01.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Cảnh báo thiên tai (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. TKVV
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 Tháng -->
+                            <div class="carousel-slide">
+                                <div class="cards-wrapper">
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_06.jpg" class="news-img" alt="IoT Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Ứng dụng sản xuất (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. LG
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_11.jpg" class="news-img" alt="Smart City Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Giải pháp P (Tháng)</h6>
+                                            <p class="news-author">
+                                                P. CNTT & CĐS
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_05.jpg" class="news-img" alt="Climate Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Biến đổi khí hậu (Tháng)</h6>
+                                            <p class="news-author">
+                                                P. ATMT
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_13.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Cảnh báo K (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. HRC2
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_05.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Đề tài Y (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. CĐ4
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3 Tháng -->
+                            <div class="carousel-slide">
+                                <div class="cards-wrapper">
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_07.jpg" class="news-img" alt="IoT Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Đề tài ứng dụng B (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. TKVV
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_01.jpg" class="news-img" alt="Smart City Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Nghiên cứu X (Tháng)</h6>
+                                            <p class="news-author">
+                                                P. ATMT
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_05.jpg" class="news-img" alt="Climate Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Biến đổi vật liệu X (Tháng)</h6>
+                                            <p class="news-author">
+                                                P. CNTT & CĐS
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_02.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Ứng dụng nguyên liệu Z (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. HRC1
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-card card">
+                                        <img src="./images/dmst_06.jpg" class="news-img" alt="Disaster Image">
+                                        <div class="news-content">
+                                            <h6 class="news-title">Nghiên cứu giải pháp Y (Tháng)</h6>
+                                            <p class="news-author">
+                                                NM. CĐ1
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controls -->
+                        <div class="carousel-control prev" onclick="moveSlide('month', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="carousel-control next" onclick="moveSlide('month', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vùng Top 3 và Bảng xếp hạng -->
+        <div class="row top3-container">
+            <!-- Top 3 cá nhân -->
+            <div class="col-lg-6 col-md-6 mb-4">
+                <div class="top3-section">
+                    <h5 class="top3-title">Bảng Xếp Hạng Cá Nhân</h5>
+                    <div class="top3-items">
+                        <!-- Top 2 -->
+                        <div class="top-item top2">
+                            <div class="top-badge">2</div>
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="top-avatar" alt="Top 2">
+                            <h6 class="top-name">Nguyễn Võ Tuấn Nhân</h6>
+                            <p class="top-unit">P. CNTT & CĐS</p>
+                            <p class="top-project">10 Đề tài</p>
+                        </div>
+                        
+                        <!-- Top 1 -->
+                        <div class="top-item top1">
+                            <div class="top-badge">1</div>
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="top-avatar" alt="Top 1">
+                            <h6 class="top-name">Trần Văn Nam</h6>
+                            <p class="top-unit">P. CNTT & CĐS</p>
+                            <p class="top-project">11 Đề tài</p>
+                        </div>
+                        
+                        <!-- Top 3 -->
+                        <div class="top-item top3">
+                            <div class="top-badge">3</div>
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="top-avatar" alt="Top 3">
+                            <h6 class="top-name">Lê Minh Tuấn</h6>
+                            <p class="top-unit">NM. CĐ2</p>
+                            <p class="top-project">9 Đề tài</p>
+                        </div>
+                    </div>
+
+
+                    <div class="ranking-container_">
+                        <!-- <h5 class="top3-title">BXH Cá nhân</h5> -->
+                        <!-- <div class="ranking-tabs">
+                            <div class="ranking-tab active" onclick="switchRankingTab('individual')">Cá Nhân</div>
+                            <div class="ranking-tab" onclick="switchRankingTab('collective')">Đơn vị</div>
+                        </div> -->
+                        
+                        <div id="individual-ranking" class="ranking-content">
+                            <table class="ranking-table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã NV</th>
+                                        <th>Tên</th>
+                                        <th>Đơn vị</th>
+                                        <th>Số đề tài</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>HPDQ01</td>
+                                        <td class="ranking-name">
+                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="ranking-avatar" alt="Avatar">
+                                            Trần Văn Q
+                                        </td>
+                                        <td>NM. HRC1</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>HPDQ02</td>
+                                        <td class="ranking-name">
+                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="ranking-avatar" alt="Avatar">
+                                            Nguyễn Tấn H
+                                        </td>
+                                        <td>P. CNTT & CĐS</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>HPDQ03</td>
+                                        <td class="ranking-name">
+                                            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="ranking-avatar" alt="Avatar">
+                                            Phạm Văn T
+                                        </td>
+                                        <td>NM. CĐ3</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>HPDQ04</td>
+                                        <td class="ranking-name">
+                                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="ranking-avatar" alt="Avatar">
+                                            TS. Phạm Thị Lan
+                                        </td>
+                                        <td>P. CNTT & CĐS</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>HPDQ05</td>
+                                        <td class="ranking-name">
+                                            <img src="https://randomuser.me/api/portraits/men/22.jpg" class="ranking-avatar" alt="Avatar">
+                                            TS. Nguyễn Văn Hùng
+                                        </td>
+                                        <td>NM. CĐ1</td>
+                                        <td>2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination" id="individual-pagination">
+                                    <li class="page-item active"><a class="page-link" href="#" onclick="changePage(event, 'individual', 1)">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" onclick="changePage(event, 'individual', 2)">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" onclick="changePage(event, 'individual', 3)">3</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Top 3 tập thể -->
+            <div class="col-lg-6 col-md-6 mb-4">
+                <div class="top3-section">
+                    <h5 class="top3-title">Bảng Xếp Hạng Đơn vị</h5>
+                    <div class="top3-items">
+                        <!-- Top 2 -->
+                        <div class="top-item top2">
+                            <div class="top-badge">2</div>
+                            <img src="./images/BCNTT.png" class="top-avatar" alt="Top 2">
+                            <h6 class="top-name">P. CNTT & CĐS</h6>
+                            <p class="top-unit" >10</p>
+                            <p class="top-project">Đề tài</p>
+                        </div>
+                        
+                        <!-- Top 1 -->
+                        <div class="top-item top1">
+                            <div class="top-badge">1</div>
+                            <img src="./images/CD2.png" class="top-avatar" alt="Top 1">
+                            <h6 class="top-name">NM. CĐ2</h6>
+                            <p class="top-unit">11</p>
+                            <p class="top-project">Đề tài</p>
+                        </div>
+                        
+                        <!-- Top 3 -->
+                        <div class="top-item top3">
+                            <div class="top-badge">3</div>
+                            <img src="./images/NMND.png" class="top-avatar" alt="Top 3">
+                            <h6 class="top-name">NM. CĐ3</h6>
+                            <p class="top-unit">9</p>
+                            <p class="top-project">Đề tài</p>
+                        </div>
+                    </div>
+
+
+                    <div class="ranking-container_">
+                        <!-- <h5 class="top3-title">BXH Đơn vị</h5> -->
+                        
+                        <div id="collective-ranking" class="ranking-content">
+                            <table class="ranking-table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Đơn vị</th>
+                                        <th>Số đề tài</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>4</td>
+                                        <td class="ranking-name">
+                                            <img src="./images/BCNTT.png" class="ranking-avatar" alt="Avatar">
+                                            P. CNTT & CĐS
+                                        </td>
+                                        <td>24</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td class="ranking-name">
+                                            <img src="./images/BCNTT.png" class="ranking-avatar" alt="Avatar">
+                                            NM. CĐ1
+                                        </td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td class="ranking-name">
+                                            <img src="./images/BCNTT.png" class="ranking-avatar" alt="Avatar">
+                                            NM. CĐ2
+                                        </td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td class="ranking-name">
+                                            <img src="./images/BCNTT.png" class="ranking-avatar" alt="Avatar">
+                                            NM. TKVV
+                                        </td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td class="ranking-name">
+                                            <img src="./images/BCNTT.png" class="ranking-avatar" alt="Avatar">
+                                            NM. HRC2
+                                        </td>
+                                        <td>6</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination" id="collective-pagination">
+                                    <li class="page-item active"><a class="page-link" href="#" onclick="changePage(event, 'collective', 1)">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" onclick="changePage(event, 'collective', 2)">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" onclick="changePage(event, 'collective', 3)">3</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="overview-container" id="tong-quan">
+            <div class="overview-header-card">
+                <div class="overview-header">
+                    <h3 class="overview-title">Tổng Quan</h3>
+                </div>
+            </div>
+
+            <div class="filter-section_">
+                <div class="team-achievement-filters">
+                    <select class="team-filter" id="yearSelector">
+                        <option value="2023" selected>Năm 2023</option>
+                        <option value="2022">Năm 2022</option>
+                        <option value="2021">Năm 2021</option>
+                        <option value="2020">Năm 2020</option>
+                    </select>
+                </div>
+            </div>
+            
+            
+            <div class="overview-cards">
+                <div class="overview-card">
+                    <div class="overview-card-title">Tổng số đề tài</div>
+                    <div class="overview-card-value summary-value text-primary">1,245</div>
+                    <!-- <div class="overview-card-change"><i class="fas fa-arrow-up"></i> 12% so với năm trước</div> -->
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-card-title">Tổng giá trị làm lợi</div>
+                    <div class="overview-card-value summary-value text-success">2,450 tỷ</div>
+                    <!-- <div class="overview-card-change"><i class="fas fa-arrow-up"></i> 18% so với năm trước</div> -->
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-card-title">Tổng số tiền thưởng</div>
+                    <div class="overview-card-value summary-value text-warning">45 tỷ</div>
+                    <!-- <div class="overview-card-change"><i class="fas fa-arrow-up"></i> 8% so với năm trước</div> -->
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-card-title">Số cá nhân được khen thưởng</div>
+                    <div class="overview-card-value summary-value text-info">324</div>
+                    <!-- <div class="overview-card-change"><i class="fas fa-arrow-up"></i> 15% so với năm trước</div> -->
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-card-title">Số tập thể được khen thưởng</div>
+                    <div class="overview-card-value summary-value text-danger">78</div>
+                    <!-- <div class="overview-card-change negative"><i class="fas fa-arrow-down"></i> 5% so với năm trước</div> -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Vùng Thành tích Tập thể -->
+        <div class="team-achievement-container" id="tap-the">
+            <div class="team-achievement-header">
+                <h3 class="team-achievement-title">Thành Tích Tập Thể</h3>
+            </div>
+            
+            <div class="team-achievement-filters">
+                <select class="team-filter" id="unitFilter">
+                    <option value="all" selected>Tất cả đơn vị</option>
+                    <option value="cntt">NM. CĐ1</option>
+                    <option value="cnsh">NM. TKVV</option>
+                    <option value="vlxd">P. ATMT</option>
+                    <option value="khmt">P. CNTT & CĐS</option>
+                    <option value="nl">NM. HRC2</option>
+                </select>
+                
+                <select class="team-filter" id="categoryFilter">
+                    <option value="all" selected>Tất cả hạng mục</option>
+                    <option value="innovation">Có đổi mới sáng tạo</option>
+                    <option value="achievement">Thành tích đạt được</option>
+                    <option value="implementation">Đưa hạng mục vào hoạt động</option>
+                </select>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="teamAchievementChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vùng Thành tích Cá nhân -->
+        <div class="achievement-container" id="ca-nhan">
+            <div class="achievement-header-card">
+                <h3 class="achievement-title">Danh Sách Cá Nhân Có Đề Tài Đổi Mới Sáng Tạo</h3>
+            </div>
+            
+            <div class="filter-section_">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <!-- <label class="filter-label">Đơn vị</label> -->
+                        <select class="filter-control" id="departmentFilter">
+                            <option value="">Tất cả đơn vị</option>
+                            <option value="NM. CĐ1">NM. CĐ1</option>
+                            <option value="NM. TKVV">NM. TKVV</option>
+                            <option value="P. ATMT">P. ATMT</option>
+                            <option value="P. CNTT & CĐS">P. CNTT & CĐS</option>
+                            <option value="NM. HRC2">NM. HRC2</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <!-- <label class="filter-label">Loại khen thưởng</label> -->
+                        <select class="filter-control" id="rewardTypeFilter">
+                            <option value="">Tất cả loại</option>
+                            <option value="Có đổi mới sáng tạo">Có đổi mới sáng tạo</option>
+                            <option value="Thành tích đạt được">Thành tích đạt được</option>
+                            <option value="Đưa hạng mục vào hoạt động">Đưa hạng mục vào hoạt động</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <!-- <label class="filter-label">Năm</label> -->
+                        <select class="filter-control" id="yearFilter">
+                            <option value="">Tất cả năm</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+                    
+                    <div class="search-box">
+                        <!-- <label class="filter-label">Tìm kiếm</label> -->
+                        <input type="text" class="search-input" id="searchInput" placeholder="Tìm theo mã, tên, đơn vị...">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="achievement-table">
+                    <thead>
+                        <tr>
+                            <th>Mã NV</th>
+                            <th>Tên NV</th>
+                            <th>Đơn vị</th>
+                            <th>Đề tài</th>
+                            <th>Loại khen thưởng</th>
+                            <th>Năm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="achievementTableBody">
+                        <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination-container">
+                <div class="page-info" id="pageInfo">Hiển thị 1-10 của 50 bản ghi</div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" id="achievementPagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous" id="prevPage">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="4">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="5">5</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next" id="nextPage">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Vùng Thống kê tổng hợp -->
+        <div class="stats-summary-container" id="thong-ke">
+            <div class="stats-summary-header">
+                <h3 class="stats-summary-title">Thống Kê Tổng Hợp</h3>
+            </div>
+            
+            <div class="stats-filters">
+                <div class="stats-filter">
+                    <!-- <label for="categoryFilter_group">Hạng mục</label> -->
+                    <select id="categoryFilter_group" class="form-select">
+                        <option value="all">Tất cả hạng mục</option>
+                        <option value="individual">Số cá nhân được thưởng</option>
+                        <option value="team">Số tập thể được thưởng</option>
+                        <option value="content">Số nội dung được khen thưởng</option>
+                        <option value="bonus">Số tiền đã thưởng</option>
+                    </select>
+                </div>
+                
+                <div class="stats-filter">
+                    <!-- <label for="yearFilter_group">Năm</label> -->
+                    <select id="yearFilter_group" class="form-select">
+                        <!-- <option value="all">Tất cả năm</option> -->
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-value-display" id="chartValueDisplay"></div>
+                <canvas id="summaryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Vùng Liên hệ/Phản hồi -->
+        <div class="contact-container" id="lien-he">
+            <div class="contact-header-card">
+                <h3 class="contact-title">Liên Hệ/Phản Hồi</h3>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="contact-text">
+                            Mọi thông tin phản hồi xin liên hệ:
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            Điện thoại: <strong>02553.620.630</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            Email: <a href="mailto:tuyendungdungquat@hoaphat.com.vn">tuyendungdungquat@hoaphat.com.vn</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <img src="./images/Logo-Gang-thep-Trang.png" alt="Logo Hòa Phát" class="img-fluid">
+                </div>
+                
+                <div class="footer-info">
+                    <p><strong>© 2025 Công ty CP Thép Hòa Phát Dung Quất</strong></p>
+                    <p>Phát triển bởi Phòng CNTT & CĐS</p>
+                </div>
+                
+                <button class="back-to-top" onclick="scrollToTop()">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hàm chuyển tab tuần/tháng
+        function switchTab(tabName) {
+            // Ẩn tất cả các tab content
+            document.querySelectorAll('.tab-pane').forEach(tab => {
+                tab.classList.remove('show', 'active');
+            });
+            
+            // Hiển thị tab được chọn
+            document.getElementById(tabName).classList.add('show', 'active');
+            
+            // Cập nhật trạng thái active cho tab
+            document.querySelectorAll('.custom-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(`custom-${tabName}-tab`).classList.add('active');
+            
+            // Chuyển đổi carousel tương ứng
+            document.querySelectorAll('.carousel-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-carousel`).classList.add('active');
+            
+            // Reset slide về đầu tiên khi chuyển tab
+            if (tabName === 'week') {
+                currentWeekSlideIndex = 0;
+                updateCarousel('week');
+            } else {
+                currentMonthSlideIndex = 0;
+                updateCarousel('month');
+            }
+        }
+        
+        // Carousel logic
+        let currentWeekSlideIndex = 0;
+        let currentMonthSlideIndex = 0;
+        
+        function updateCarousel(type) {
+            const track = document.getElementById(`${type}CarouselTrack`);
+            const slides = document.querySelectorAll(`#${type}-carousel .carousel-slide`);
+            
+            // Cập nhật active class
+            slides.forEach((slide, index) => {
+                const isActive = type === 'week' 
+                    ? index === currentWeekSlideIndex 
+                    : index === currentMonthSlideIndex;
+                slide.classList.toggle('active', isActive);
+            });
+            
+            // Di chuyển track
+            const currentIndex = type === 'week' ? currentWeekSlideIndex : currentMonthSlideIndex;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        function moveSlide(type, direction) {
+            const slides = document.querySelectorAll(`#${type}-carousel .carousel-slide`);
+            const totalSlides = slides.length;
+            
+            if (type === 'week') {
+                currentWeekSlideIndex = (currentWeekSlideIndex + direction + totalSlides) % totalSlides;
+            } else {
+                currentMonthSlideIndex = (currentMonthSlideIndex + direction + totalSlides) % totalSlides;
+            }
+            
+            updateCarousel(type);
+        }
+        
+        // Tự động chuyển slide sau 5 giây
+        // setInterval(() => {
+        //     const activeTab = document.querySelector('.custom-tab.active').id.replace('custom-', '').replace('-tab', '');
+        //     moveSlide(activeTab, 1);
+        // }, 5000);
+        
+        // Khởi tạo carousel
+        updateCarousel('week');
+        updateCarousel('month');
+        
+        // Khởi tạo carousel
+        updateCarousel();
+        
+        // Hàm chuyển tab bảng xếp hạng
+        function switchRankingTab(tabName) {
+            // Ẩn tất cả các nội dung ranking
+            document.querySelectorAll('.ranking-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Hiển thị tab được chọn
+            document.getElementById(`${tabName}-ranking`).style.display = 'block';
+            
+            // Cập nhật trạng thái active cho tab
+            document.querySelectorAll('.ranking-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Hàm chuyển trang phân trang
+        function changePage(event, type, pageNumber) {
+            event.preventDefault();
+            
+            // Cập nhật active class cho pagination
+            const paginationId = `${type}-pagination`;
+            document.querySelectorAll(`#${paginationId} .page-item`).forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.parentElement.classList.add('active');
+            
+            // Ở đây bạn có thể thêm logic tải dữ liệu trang mới nếu cần
+            console.log(`Đã chuyển sang trang ${pageNumber} của ${type}`);
+        }
+    </script>
+    <script>
+        // Xử lý chọn năm
+        document.getElementById('yearSelector').addEventListener('change', function() {
+            const selectedYear = this.value;
+            console.log(`Đã chọn năm: ${selectedYear}`);
+            // Có thể thêm logic tải dữ liệu theo năm
+            // Ví dụ: loadOverviewData(selectedYear);
+            loadOverviewData(selectedYear);
+        });
+        
+        // Hàm ví dụ để tải dữ liệu tổng quan
+        function loadOverviewData(year) {
+            // Gọi API hoặc cập nhật dữ liệu theo năm được chọn
+            console.log(`Tải dữ liệu tổng quan cho năm ${year}`);
+            
+            // Ví dụ cập nhật dữ liệu
+            const data = {
+                "2020": {
+                    projects: 980,
+                    economicValue: "1,850 tỷ",
+                    bonus: "32 tỷ",
+                    individuals: 245,
+                    teams: 65
+                },
+                "2021": {
+                    projects: 1050,
+                    economicValue: "2,000 tỷ",
+                    bonus: "36 tỷ",
+                    individuals: 278,
+                    teams: 72
+                },
+                "2022": {
+                    projects: 1120,
+                    economicValue: "2,200 tỷ",
+                    bonus: "42 tỷ",
+                    individuals: 295,
+                    teams: 82
+                },
+                "2023": {
+                    projects: 1245,
+                    economicValue: "250 tỷ",
+                    bonus: "45 tỷ",
+                    individuals: 324,
+                    teams: 78
+                }
+            };
+            
+            if (data[year]) {
+                document.querySelector('.overview-card:nth-child(1) .overview-card-value').textContent = data[year].projects.toLocaleString();
+                document.querySelector('.overview-card:nth-child(2) .overview-card-value').textContent = data[year].economicValue;
+                document.querySelector('.overview-card:nth-child(3) .overview-card-value').textContent = data[year].bonus;
+                document.querySelector('.overview-card:nth-child(4) .overview-card-value').textContent = data[year].individuals;
+                document.querySelector('.overview-card:nth-child(5) .overview-card-value').textContent = data[year].teams;
+            }
+        }
+        
+        // Khởi tạo dữ liệu
+        loadOverviewData('2023');
+    </script>
+
+<script>
+    
+    // Dữ liệu biểu đồ thành tích tập thể
+    const teamData = {
+        all: {
+            labels: ['NM. CĐ1', 'NM. TKVV', 'P. ATMT', 'P. CNTT & CĐS', 'NM. HRC2'],
+            innovation: [45, 32, 28, 18, 12],
+            achievement: [38, 29, 24, 15, 10],
+            implementation: [30, 25, 20, 12, 8]
+        },
+        cntt: {
+            labels: ['NM. CĐ1'],
+            innovation: [45],
+            achievement: [38],
+            implementation: [30]
+        },
+        cnsh: {
+            labels: ['NM. TKVV'],
+            innovation: [32],
+            achievement: [29],
+            implementation: [25]
+        },
+        vlxd: {
+            labels: ['P. ATMT'],
+            innovation: [28],
+            achievement: [24],
+            implementation: [20]
+        },
+        khmt: {
+            labels: ['P. CNTT & CĐS'],
+            innovation: [18],
+            achievement: [15],
+            implementation: [12]
+        },
+        nl: {
+            labels: ['NM. HRC2'],
+            innovation: [12],
+            achievement: [10],
+            implementation: [8]
+        }
+    };
+    
+    // Khởi tạo biểu đồ
+    const ctx = document.getElementById('teamAchievementChart').getContext('2d');
+    let teamAchievementChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: teamData.all.labels,
+            datasets: [
+                {
+                    label: 'Có đổi mới sáng tạo',
+                    data: teamData.all.innovation,
+                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Thành tích đạt được',
+                    data: teamData.all.achievement,
+                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Đưa hạng mục vào hoạt động',
+                    data: teamData.all.implementation,
+                    backgroundColor: 'rgba(230, 126, 34, 0.7)',
+                    borderColor: 'rgba(230, 126, 34, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Số đề tài'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        // text: 'Đơn vị'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw} đề tài`;
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                }
+            },
+            animation: {
+                duration: 1000
+            }
+        }
+    });
+    
+    // Hiển thị giá trị trên đầu mỗi cột
+    Chart.register({
+        id: 'showValues',
+        afterDatasetsDraw(chart, args, options) {
+            const {ctx, data, chartArea: {top, bottom, left, right, width, height}, scales: {x, y}} = chart;
+            
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillStyle = '#333';
+            
+            chart.data.datasets.forEach((dataset, i) => {
+                chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
+                    if (dataset.data[index] > 0) {
+                        ctx.fillText(
+                            dataset.data[index], 
+                            datapoint.x, 
+                            datapoint.y - 5
+                        );
+                    }
+                });
+            });
+        }
+    });
+    
+    // Xử lý filter
+    document.getElementById('unitFilter').addEventListener('change', updateChart);
+    document.getElementById('categoryFilter').addEventListener('change', updateChart);
+    
+    function updateChart() {
+        const unit = document.getElementById('unitFilter').value;
+        const category = document.getElementById('categoryFilter').value;
+        
+        // Cập nhật labels
+        teamAchievementChart.data.labels = teamData[unit].labels;
+        
+        // Cập nhật dữ liệu theo lựa chọn
+        if (category === 'all') {
+            teamAchievementChart.data.datasets = [
+                {
+                    label: 'Có đổi mới sáng tạo',
+                    data: teamData[unit].innovation,
+                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Thành tích đạt được',
+                    data: teamData[unit].achievement,
+                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Đưa hạng mục vào hoạt động',
+                    data: teamData[unit].implementation,
+                    backgroundColor: 'rgba(230, 126, 34, 0.7)',
+                    borderColor: 'rgba(230, 126, 34, 1)',
+                    borderWidth: 1
+                }
+            ];
+        } else {
+            let datasetConfig = {};
+            
+            if (category === 'innovation') {
+                datasetConfig = {
+                    label: 'Có đổi mới sáng tạo',
+                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                    borderColor: 'rgba(52, 152, 219, 1)'
+                };
+            } else if (category === 'achievement') {
+                datasetConfig = {
+                    label: 'Thành tích đạt được',
+                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                    borderColor: 'rgba(46, 204, 113, 1)'
+                };
+            } else {
+                datasetConfig = {
+                    label: 'Đưa hạng mục vào hoạt động',
+                    backgroundColor: 'rgba(230, 126, 34, 0.7)',
+                    borderColor: 'rgba(230, 126, 34, 1)'
+                };
+            }
+            
+            teamAchievementChart.data.datasets = [{
+                ...datasetConfig,
+                data: teamData[unit][category],
+                borderWidth: 1
+            }];
+        }
+        
+        teamAchievementChart.update();
+    }
+</script>
+<script>
+    // (Giữ nguyên các hàm JavaScript cũ)
+    // ...
+    
+    // Dữ liệu mẫu cho bảng Thành tích Cá nhân
+    const achievementData = [
+        { id: 'NV001', name: 'Nguyễn Văn A', department: 'NM. CĐ1', project: 'Giải pháp A', reward: 'Có đổi mới sáng tạo', year: '2023' },
+        { id: 'NV002', name: 'Trần Thị B', department: 'NM. TKVV', project: 'Nghiên cứu B', reward: 'Thành tích đạt được', year: '2023' },
+        { id: 'NV003', name: 'Lê Văn C', department: 'P. ATMT', project: 'Vật liệu C', reward: 'Đưa hạng mục vào hoạt động', year: '2023' },
+        { id: 'NV004', name: 'Phạm Thị D', department: 'P. CNTT & CĐS', project: 'Giải pháp xử lý D', reward: 'Đưa hạng mục vào hoạt động', year: '2023' },
+        { id: 'NV005', name: 'Hoàng Văn E', department: 'NM. HRC2', project: 'Năng lượng tái tạo', reward: 'Có đổi mới sáng tạo', year: '2023' },
+        { id: 'NV006', name: 'Vũ Thị F', department: 'NM. CĐ1', project: 'Blockchain', reward: 'Có đổi mới sáng tạo', year: '2022' },
+        { id: 'NV007', name: 'Đặng Văn G', department: 'NM. TKVV', project: 'Nghiên cứu E', reward: 'Thành tích đạt được', year: '2022' },
+        { id: 'NV008', name: 'Bùi Thị H', department: 'P. ATMT', project: 'Đề tài F', reward: 'Đưa hạng mục vào hoạt động', year: '2022' },
+        { id: 'NV009', name: 'Ngô Văn I', department: 'P. CNTT & CĐS', project: 'Giám sát G', reward: 'Đưa hạng mục vào hoạt động', year: '2022' },
+        { id: 'NV010', name: 'Đỗ Thị K', department: 'NM. HRC2', project: 'Hiệu suất H', reward: 'Có đổi mới sáng tạo', year: '2022' },
+        { id: 'NV011', name: 'Mai Văn L', department: 'NM. CĐ1', project: 'Hệ thống K', reward: 'Có đổi mới sáng tạo', year: '2021' },
+        { id: 'NV012', name: 'Lý Thị M', department: 'NM. TKVV', project: 'Công nghệ L', reward: 'Thành tích đạt được', year: '2021' },
+        { id: 'NV013', name: 'Trương Văn N', department: 'P. ATMT', project: 'Vật liệu M', reward: 'Đưa hạng mục vào hoạt động', year: '2021' },
+        { id: 'NV014', name: 'Hồ Thị O', department: 'P. CNTT & CĐS', project: 'Xử lý N', reward: 'Đưa hạng mục vào hoạt động', year: '2021' },
+        { id: 'NV015', name: 'Phan Văn P', department: 'NM. HRC2', project: 'Năng lượng Z', reward: 'Có đổi mới sáng tạo', year: '2021' },
+        { id: 'NV016', name: 'Võ Thị Q', department: 'NM. CĐ1', project: 'AI', reward: 'Có đổi mới sáng tạo', year: '2020' },
+        { id: 'NV017', name: 'Chu Văn R', department: 'NM. TKVV', project: 'Nghiên cứu O', reward: 'Thành tích đạt được', year: '2020' },
+        { id: 'NV018', name: 'Lâm Thị S', department: 'P. ATMT', project: 'Đề tài ABC', reward: 'Đưa hạng mục vào hoạt động', year: '2020' },
+        { id: 'NV019', name: 'Tô Văn T', department: 'P. CNTT & CĐS', project: 'Giảm thiểu CO2', reward: 'Đưa hạng mục vào hoạt động', year: '2020' },
+        { id: 'NV020', name: 'Hà Thị U', department: 'NM. HRC2', project: 'Lưu trữ năng lượng', reward: 'Có đổi mới sáng tạo', year: '2020' }
+    ];
+
+    // Biến quản lý phân trang
+    let currentPage = 1;
+    const rowsPerPage = 5;
+    let filteredData = [...achievementData];
+
+    // Hàm hiển thị dữ liệu
+    function displayData(page = 1) {
+        currentPage = page;
+        const startIdx = (page - 1) * rowsPerPage;
+        const endIdx = startIdx + rowsPerPage;
+        const paginatedData = filteredData.slice(startIdx, endIdx);
+        
+        const tableBody = document.getElementById('achievementTableBody');
+        tableBody.innerHTML = '';
+        
+        paginatedData.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.department}</td>
+                <td>${item.project}</td>
+                <td>${item.reward}</td>
+                <td>${item.year}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+        
+        // Cập nhật thông tin phân trang
+        updatePaginationInfo();
+    }
+    
+    // Hàm cập nhật thông tin phân trang
+    function updatePaginationInfo() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const startItem = (currentPage - 1) * rowsPerPage + 1;
+        const endItem = Math.min(currentPage * rowsPerPage, filteredData.length);
+        
+        document.getElementById('pageInfo').textContent = 
+            `Hiển thị ${startItem}-${endItem} của ${filteredData.length} bản ghi`;
+        
+        // Cập nhật nút phân trang
+        const pagination = document.getElementById('achievementPagination');
+        pagination.innerHTML = '';
+        
+        // Nút Previous
+        const prevItem = document.createElement('li');
+        prevItem.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+        prevItem.innerHTML = `
+            <a class="page-link" href="#" aria-label="Previous" id="prevPage">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        `;
+        pagination.appendChild(prevItem);
+        
+        // Các nút trang
+        const maxVisiblePages = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+        
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+        
+        if (startPage > 1) {
+            const firstPageItem = document.createElement('li');
+            firstPageItem.className = 'page-item';
+            firstPageItem.innerHTML = `<a class="page-link" href="#" data-page="1">1</a>`;
+            pagination.appendChild(firstPageItem);
+            
+            if (startPage > 2) {
+                const ellipsisItem = document.createElement('li');
+                ellipsisItem.className = 'page-item disabled';
+                ellipsisItem.innerHTML = `<span class="page-link">...</span>`;
+                pagination.appendChild(ellipsisItem);
+            }
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            const pageItem = document.createElement('li');
+            pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            pageItem.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+            pagination.appendChild(pageItem);
+        }
+        
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                const ellipsisItem = document.createElement('li');
+                ellipsisItem.className = 'page-item disabled';
+                ellipsisItem.innerHTML = `<span class="page-link">...</span>`;
+                pagination.appendChild(ellipsisItem);
+            }
+            
+            const lastPageItem = document.createElement('li');
+            lastPageItem.className = 'page-item';
+            lastPageItem.innerHTML = `<a class="page-link" href="#" data-page="${totalPages}">${totalPages}</a>`;
+            pagination.appendChild(lastPageItem);
+        }
+        
+        // Nút Next
+        const nextItem = document.createElement('li');
+        nextItem.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+        nextItem.innerHTML = `
+            <a class="page-link" href="#" aria-label="Next" id="nextPage">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        `;
+        pagination.appendChild(nextItem);
+        
+        // Thêm sự kiện click cho các nút trang
+        document.querySelectorAll('#achievementPagination .page-link').forEach(link => {
+            if (link.id !== 'prevPage' && link.id !== 'nextPage') {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = parseInt(this.getAttribute('data-page'));
+                    displayData(page);
+                });
+            }
+        });
+        
+        // Sự kiện cho nút Previous
+        document.getElementById('prevPage').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                displayData(currentPage - 1);
+            }
+        });
+        
+        // Sự kiện cho nút Next
+        document.getElementById('nextPage').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                displayData(currentPage + 1);
+            }
+        });
+    }
+    
+    // Hàm lọc dữ liệu
+    function filterData() {
+        const department = document.getElementById('departmentFilter').value.toLowerCase();
+        const rewardType = document.getElementById('rewardTypeFilter').value.toLowerCase();
+        const year = document.getElementById('yearFilter').value;
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        
+        filteredData = achievementData.filter(item => {
+            return (department === '' || item.department.toLowerCase().includes(department)) &&
+                   (rewardType === '' || item.reward.toLowerCase().includes(rewardType)) &&
+                   (year === '' || item.year === year) &&
+                   (searchTerm === '' || 
+                    item.id.toLowerCase().includes(searchTerm) || 
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.department.toLowerCase().includes(searchTerm) ||
+                    item.project.toLowerCase().includes(searchTerm) ||
+                    item.reward.toLowerCase().includes(searchTerm) ||
+                    item.year.includes(searchTerm));
+        });
+        
+        currentPage = 1;
+        displayData();
+    }
+    
+    // Thêm sự kiện cho các bộ lọc
+    document.getElementById('departmentFilter').addEventListener('change', filterData);
+    document.getElementById('rewardTypeFilter').addEventListener('change', filterData);
+    document.getElementById('yearFilter').addEventListener('change', filterData);
+    document.getElementById('searchInput').addEventListener('input', filterData);
+    
+    // Khởi tạo dữ liệu ban đầu
+    displayData();
+</script>
+<script>
+    // (Giữ nguyên các hàm JavaScript cũ)
+    // ...
+    
+    // Khởi tạo biểu đồ
+    const ctx_group = document.getElementById('summaryChart').getContext('2d');
+    const chartValueDisplay = document.getElementById('chartValueDisplay');
+    
+    // Dữ liệu mẫu
+    const chartData = {
+        labels: ['Có đổi mới sáng tạo', 'Thành tích đạt được', 'Đưa hạng mục vào hoạt động'],
+        datasets: [
+            {
+                label: 'Số cá nhân được thưởng',
+                data: [120, 85, 65],
+                backgroundColor: 'rgba(76, 175, 80, 0.7)',   // Xanh lá đậm
+                borderColor: 'rgba(76, 175, 80, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Số tập thể được thưởng',
+                data: [45, 30, 22],
+                backgroundColor: 'rgba(100, 181, 246, 0.7)',  // Xanh dương nhạt
+                borderColor: 'rgba(100, 181, 246, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Số nội dung được khen thưởng',
+                data: [80, 60, 40],
+                backgroundColor: 'rgba(255, 235, 59, 0.7)',   // Vàng nhạt
+                borderColor: 'rgba(255, 235, 59, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Số tiền đã thưởng (tỷ)',
+                data: [15, 10, 8],
+                backgroundColor: 'rgba(255, 112, 67, 0.7)',   // Cam nhạt
+                borderColor: 'rgba(255, 112, 67, 1)',
+                borderWidth: 1
+            }
+        ]
+
+    };
+    
+    // Tạo biểu đồ
+    const summaryChart = new Chart(ctx_group, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Số lượng'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        // text: 'Danh mục'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.dataset.label.includes('tiền')) {
+                                label += context.raw + ' tỷ đồng';
+                            } else {
+                                label += context.raw;
+                            }
+                            return label;
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                }
+            },
+            onClick: (e, activeEls) => {
+                if (activeEls.length > 0) {
+                    const { datasetIndex, index } = activeEls[0];
+                    const datasetLabel = chartData.datasets[datasetIndex].label;
+                    const value = chartData.datasets[datasetIndex].data[index];
+                    const category = chartData.labels[index];
+                    
+                    let displayText = `${datasetLabel}<br>${category}: ${value}`;
+                    if (datasetLabel.includes('tiền')) {
+                        displayText += ' tỷ đồng';
+                    }
+                    
+                    chartValueDisplay.innerHTML = displayText;
+                    chartValueDisplay.style.display = 'block';
+                }
+            }
+        }
+    });
+    
+    // Xử lý filter
+    document.getElementById('categoryFilter_group').addEventListener('change', updateChart);
+    document.getElementById('yearFilter_group').addEventListener('change', updateChart);
+    
+    function updateChart() {
+        const category = document.getElementById('categoryFilter_group').value;
+        const year = document.getElementById('yearFilter_group').value;
+        
+        // Ở đây bạn có thể thêm logic filter dữ liệu thực tế
+        // Đây chỉ là ví dụ filter đơn giản
+        
+        if (category === 'all') {
+            // Hiển thị tất cả datasets
+            chartData.datasets.forEach(dataset => {
+                dataset.hidden = false;
+            });
+        } else {
+            // Ẩn tất cả datasets trừ dataset được chọn
+            chartData.datasets.forEach((dataset, index) => {
+                dataset.hidden = true;
+                
+                if (category === 'individual' && dataset.label.includes('cá nhân')) {
+                    dataset.hidden = false;
+                }
+                if (category === 'team' && dataset.label.includes('tập thể')) {
+                    dataset.hidden = false;
+                }
+                if (category === 'content' && dataset.label.includes('nội dung')) {
+                    dataset.hidden = false;
+                }
+                if (category === 'bonus' && dataset.label.includes('tiền')) {
+                    dataset.hidden = false;
+                }
+            });
+        }
+        
+        // Cập nhật dữ liệu theo năm (ví dụ)
+        if (year !== 'all') {
+            // Đây là nơi bạn sẽ load dữ liệu thực tế theo năm
+            // Ví dụ:
+            const yearlyData = {
+                '2021': {
+                    individual: [100, 70, 50],
+                    team: [35, 25, 15],
+                    content: [70, 50, 30],
+                    bonus: [12, 8, 5]
+                },
+                '2022': {
+                    individual: [110, 80, 60],
+                    team: [40, 28, 20],
+                    content: [75, 55, 35],
+                    bonus: [14, 9, 6]
+                },
+                '2023': {
+                    individual: [120, 85, 65],
+                    team: [45, 30, 22],
+                    content: [80, 60, 40],
+                    bonus: [15, 10, 8]
+                }
+            };
+            
+            if (yearlyData[year]) {
+                chartData.datasets[0].data = yearlyData[year].individual;
+                chartData.datasets[1].data = yearlyData[year].team;
+                chartData.datasets[2].data = yearlyData[year].content;
+                chartData.datasets[3].data = yearlyData[year].bonus;
+            }
+        }
+        
+        summaryChart.update();
+    }
+    
+    // Ẩn hiển thị giá trị khi click ra ngoài
+    document.querySelector('.chart-container').addEventListener('click', (e) => {
+        if (e.target.tagName !== 'CANVAS') {
+            chartValueDisplay.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    // Xử lý menu mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+        
+        // Đổi icon khi menu mở/đóng
+        const icon = this.querySelector('i');
+        if (mobileMenu.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    
+    // Đóng menu khi click vào mục menu trên mobile
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+            mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+        });
+    });
+    
+    // (Giữ nguyên các hàm JavaScript cũ)
+    // ...
+</script>
+<script>
+    // (Giữ nguyên tất cả các hàm JavaScript cũ)
+    // ...
+    
+    // Hàm scroll lên đầu trang
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Hiển thị nút back-to-top khi cuộn trang
+    window.addEventListener('scroll', function() {
+        const backToTopButton = document.querySelector('.back-to-top');
+        if (window.pageYOffset > 300) {
+            backToTopButton.style.opacity = '1';
+            backToTopButton.style.visibility = 'visible';
+        } else {
+            backToTopButton.style.opacity = '0';
+            backToTopButton.style.visibility = 'hidden';
+        }
+    });
+</script>
+</body>
+</html>
